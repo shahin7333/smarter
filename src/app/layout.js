@@ -1,5 +1,9 @@
 import { Inter } from "next/font/google";
 import "./globals.css";
+import { NextUIProvider } from "@nextui-org/react";
+import Header from "@/components/layout/Header";
+import { ThemeProvider } from "next-themes";
+import Footer from "@/components/layout/Footer";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -10,8 +14,18 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en">
-      <body className={inter.className}>{children}</body>
+    <html lang="en" suppressHydrationWarning>
+      <body className={inter.className}>
+        <ThemeProvider attribute="class">
+          <NextUIProvider>
+            <div className="bg-[#f5f5f5] dark:bg-[#151D2E] min-h-[100vh]">
+              <Header />
+              {children}
+              <Footer />
+            </div>
+          </NextUIProvider>
+        </ThemeProvider>
+      </body>
     </html>
   );
 }
